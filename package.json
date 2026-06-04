@@ -6,11 +6,14 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@remotion/bundler": "^4.0.472",
     "@remotion/cli": "4.0.471",
+    "@remotion/renderer": "^4.0.472",
+    "@remotion/tailwind-v4": "4.0.471",
+    "@vercel/node": "^5.8.12",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remotion": "4.0.471",
-    "@remotion/tailwind-v4": "4.0.471",
     "tailwindcss": "4.0.0"
   },
   "devDependencies": {
