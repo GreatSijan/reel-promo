@@ -30,12 +30,24 @@ jobs:
       - name: Render HR video
         run: |
           npx remotion render DuxiosPromoHR out/frames-hr/ --sequence
-          ffmpeg -framerate 30 -i out/frames-hr/element-%03d.jpeg -c:v libx264 -pix_fmt yuv420p out/duxios-hr.mp4
+          ffmpeg -framerate 30 -i out/frames-hr/element-%03d.jpeg \
+            -i public/dark-drone-ambient.mp3 \
+            -i public/cinematic-impact-hit.mp3 \
+            -filter_complex "[1:a]volume=0.4[a1];[2:a]volume=0.9[a2];[a1][a2]amix=inputs=2:duration=first[aout]" \
+            -map 0:v -map "[aout]" \
+            -c:v libx264 -c:a aac -pix_fmt yuv420p -shortest \
+            out/duxios-hr.mp4
 
       - name: Render EN video
         run: |
           npx remotion render DuxiosPromoEN out/frames-en/ --sequence
-          ffmpeg -framerate 30 -i out/frames-en/element-%03d.jpeg -c:v libx264 -pix_fmt yuv420p out/duxios-en.mp4
+          ffmpeg -framerate 30 -i out/frames-en/element-%03d.jpeg \
+            -i public/dark-drone-ambient.mp3 \
+            -i public/cinematic-impact-hit.mp3 \
+            -filter_complex "[1:a]volume=0.4[a1];[2:a]volume=0.9[a2];[a1][a2]amix=inputs=2:duration=first[aout]" \
+            -map 0:v -map "[aout]" \
+            -c:v libx264 -c:a aac -pix_fmt yuv420p -shortest \
+            out/duxios-en.mp4
 
       - name: Upload HR video
         uses: actions/upload-artifact@v4
