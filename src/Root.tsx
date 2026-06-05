@@ -1,14 +1,22 @@
-// Root.tsx
 import { Composition } from "remotion";
-import { DuxiosReel2 } from "./DuxiosReel2";
+import { DuxiosPromoHR } from "./DuxiosPromoHR";
+import { DuxiosPromoEN } from "./DuxiosPromoEN";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="DuxiosReel2"
-        component={DuxiosReel2}
-        durationInFrames={720}   // 24 sekundi na 30fps
+        id="DuxiosPromoHR"
+        component={DuxiosPromoHR}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="DuxiosPromoEN"
+        component={DuxiosPromoEN}
+        durationInFrames={450}
         fps={30}
         width={1080}
         height={1920}

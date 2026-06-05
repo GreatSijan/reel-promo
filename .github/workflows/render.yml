@@ -27,14 +27,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg chromium-browser
 
-      - name: Render video
+      - name: Render HR video
         run: |
-          npx remotion render DuxiosReel2 out/frames/ --sequence
-          ffmpeg -framerate 30 -i out/frames/element-%03d.jpeg -c:v libx264 -pix_fmt yuv420p out/duxios.mp4
+          npx remotion render DuxiosPromoHR out/frames-hr/ --sequence
+          ffmpeg -framerate 30 -i out/frames-hr/element-%03d.jpeg -c:v libx264 -pix_fmt yuv420p out/duxios-hr.mp4
 
-      - name: Upload video
+      - name: Render EN video
+        run: |
+          npx remotion render DuxiosPromoEN out/frames-en/ --sequence
+          ffmpeg -framerate 30 -i out/frames-en/element-%03d.jpeg -c:v libx264 -pix_fmt yuv420p out/duxios-en.mp4
+
+      - name: Upload HR video
         uses: actions/upload-artifact@v4
         with:
-          name: duxios-reel
-          path: out/duxios.mp4
+          name: duxios-promo-HR
+          path: out/duxios-hr.mp4
+          retention-days: 7
+
+      - name: Upload EN video
+        uses: actions/upload-artifact@v4
+        with:
+          name: duxios-promo-EN
+          path: out/duxios-en.mp4
           retention-days: 7
