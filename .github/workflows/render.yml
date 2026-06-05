@@ -1,64 +1,50 @@
-name: Render Remotion Video
+name: Render Krasna kuca Reel
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
   render:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: "20"
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm install
 
-      - name: Install system dependencies
+      - name: Install Chrome dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg chromium-browser
+          sudo apt-get install -y \
+            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 \
+            libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
+            libxfixes3 libxrandr2 libgbm1 libasound2
 
-      - name: Render HR video
+      - name: Install FFmpeg
+        run: sudo apt-get install -y ffmpeg
+
+      - name: Render frames
+        run: npx remotion render KrasnaKucaReel out/frames/ --sequence
+
+      - name: Encode video with audio
         run: |
-          npx remotion render DuxiosPromoHR out/frames-hr/ --sequence
-          ffmpeg -framerate 30 -i out/frames-hr/element-%03d.jpeg \
+          /usr/bin/ffmpeg \
+            -framerate 30 \
+            -i out/frames/element-%03d.jpeg \
             -i public/dark-drone-ambient.mp3 \
-            -i public/cinematic-impact-hit.mp3 \
-            -filter_complex "[1:a]volume=0.4[a1];[2:a]volume=0.9[a2];[a1][a2]amix=inputs=2:duration=first[aout]" \
-            -map 0:v -map "[aout]" \
-            -c:v libx264 -c:a aac -pix_fmt yuv420p -shortest \
-            out/duxios-hr.mp4
+            -c:v libx264 \
+            -c:a aac \
+            -shortest \
+            -pix_fmt yuv420p \
+            out/krasna-kuca-reel.mp4
 
-      - name: Render EN video
-        run: |
-          npx remotion render DuxiosPromoEN out/frames-en/ --sequence
-          ffmpeg -framerate 30 -i out/frames-en/element-%03d.jpeg \
-            -i public/dark-drone-ambient.mp3 \
-            -i public/cinematic-impact-hit.mp3 \
-            -filter_complex "[1:a]volume=0.4[a1];[2:a]volume=0.9[a2];[a1][a2]amix=inputs=2:duration=first[aout]" \
-            -map 0:v -map "[aout]" \
-            -c:v libx264 -c:a aac -pix_fmt yuv420p -shortest \
-            out/duxios-en.mp4
-
-      - name: Upload HR video
+      - name: Upload video
         uses: actions/upload-artifact@v4
         with:
-          name: duxios-promo-HR
-          path: out/duxios-hr.mp4
-          retention-days: 7
-
-      - name: Upload EN video
-        uses: actions/upload-artifact@v4
-        with:
-          name: duxios-promo-EN
-          path: out/duxios-en.mp4
-          retention-days: 7
+          name: krasna-kuca-reel
+          path: out/krasna-kuca-reel.mp4
