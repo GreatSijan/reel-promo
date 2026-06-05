@@ -31,12 +31,18 @@ jobs:
       - name: Render V1 frames
         run: npx remotion render KrasnaKucaV1 out/frames-v1/ --sequence
 
+      - name: Render V1 audio
+        run: npx remotion render KrasnaKucaV1 out/audio-v1.wav --codec=wav
+
       - name: Encode V1
         run: |
           ffmpeg \
             -framerate 30 \
             -i out/frames-v1/element-%03d.jpeg \
+            -i out/audio-v1.wav \
             -c:v libx264 \
+            -c:a aac \
+            -shortest \
             -pix_fmt yuv420p \
             -movflags +faststart \
             out/krasna-kuca-v1.mp4
@@ -44,12 +50,18 @@ jobs:
       - name: Render V2 frames
         run: npx remotion render KrasnaKucaV2 out/frames-v2/ --sequence
 
+      - name: Render V2 audio
+        run: npx remotion render KrasnaKucaV2 out/audio-v2.wav --codec=wav
+
       - name: Encode V2
         run: |
           ffmpeg \
             -framerate 30 \
             -i out/frames-v2/element-%03d.jpeg \
+            -i out/audio-v2.wav \
             -c:v libx264 \
+            -c:a aac \
+            -shortest \
             -pix_fmt yuv420p \
             -movflags +faststart \
             out/krasna-kuca-v2.mp4
