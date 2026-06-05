@@ -28,23 +28,36 @@ jobs:
       - name: Install FFmpeg
         run: sudo apt-get install -y ffmpeg
 
-      - name: Render frames
-        run: npx remotion render KrasnaKucaReel out/frames/ --sequence
+      - name: Render V1 frames
+        run: npx remotion render KrasnaKucaV1 out/frames-v1/ --sequence
 
-      - name: Encode video with audio
+      - name: Encode V1
         run: |
-          /usr/bin/ffmpeg \
+          ffmpeg \
             -framerate 30 \
-            -i out/frames/element-%03d.jpeg \
-            -i public/dark-drone-ambient.mp3 \
+            -i out/frames-v1/element-%03d.jpeg \
             -c:v libx264 \
-            -c:a aac \
-            -shortest \
             -pix_fmt yuv420p \
-            out/krasna-kuca-reel.mp4
+            -movflags +faststart \
+            out/krasna-kuca-v1.mp4
 
-      - name: Upload video
+      - name: Render V2 frames
+        run: npx remotion render KrasnaKucaV2 out/frames-v2/ --sequence
+
+      - name: Encode V2
+        run: |
+          ffmpeg \
+            -framerate 30 \
+            -i out/frames-v2/element-%03d.jpeg \
+            -c:v libx264 \
+            -pix_fmt yuv420p \
+            -movflags +faststart \
+            out/krasna-kuca-v2.mp4
+
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: krasna-kuca-reel
-          path: out/krasna-kuca-reel.mp4
+          name: krasna-kuca-reels
+          path: |
+            out/krasna-kuca-v1.mp4
+            out/krasna-kuca-v2.mp4
