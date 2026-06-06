@@ -8,7 +8,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="KrasnaKucaV1"
         component={KrasnaKucaV1}
-        durationInFrames={540}
+        durationInFrames={750}
         fps={30}
         width={1080}
         height={1920}
@@ -16,7 +16,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="KrasnaKucaV2"
         component={KrasnaKucaV2}
-        durationInFrames={540}
+        durationInFrames={750}
         fps={30}
         width={1080}
         height={1920}

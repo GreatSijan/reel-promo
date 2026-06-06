@@ -29,7 +29,7 @@ jobs:
         run: sudo apt-get install -y ffmpeg
 
       - name: Render V1 frames
-        run: npx remotion render KrasnaKucaV1 out/frames-v1/ --sequence
+        run: npx remotion render KrasnaKucaV1 out/frames-v1/ --sequence --image-format=png
 
       - name: Render V1 audio
         run: npx remotion render KrasnaKucaV1 out/audio-v1.wav --codec=wav
@@ -38,7 +38,7 @@ jobs:
         run: |
           ffmpeg \
             -framerate 30 \
-            -i out/frames-v1/element-%03d.jpeg \
+            -i out/frames-v1/element-%03d.png \
             -i out/audio-v1.wav \
             -c:v libx264 \
             -c:a aac \
@@ -48,7 +48,7 @@ jobs:
             out/krasna-kuca-v1.mp4
 
       - name: Render V2 frames
-        run: npx remotion render KrasnaKucaV2 out/frames-v2/ --sequence
+        run: npx remotion render KrasnaKucaV2 out/frames-v2/ --sequence --image-format=png
 
       - name: Render V2 audio
         run: npx remotion render KrasnaKucaV2 out/audio-v2.wav --codec=wav
@@ -57,7 +57,7 @@ jobs:
         run: |
           ffmpeg \
             -framerate 30 \
-            -i out/frames-v2/element-%03d.jpeg \
+            -i out/frames-v2/element-%03d.png \
             -i out/audio-v2.wav \
             -c:v libx264 \
             -c:a aac \
