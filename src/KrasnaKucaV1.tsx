@@ -98,7 +98,7 @@ const Scene1: React.FC<{ frame: number }> = ({ frame }) => {
         <div style={{ opacity: h1Op, transform: `translateY(${h1Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 130, color: CREAM, lineHeight: 1.0, textShadow: "0 6px 40px rgba(0,0,0,0.8)", letterSpacing: "1px" }}>
           Vaš privatni
         </div>
-        <div style={{ opacity: h2Op, transform: `translateY(${h2Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 130, color: GOLD, lineHeight: 1.05, textShadow: "0 6px 40px rgba(0,0,0,0.7)", letterSpacing: "1px" }}>
+        <div style={{ opacity: h2Op, transform: `translateY(${h2Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 130, color: GOLD, lineHeight: 1.05, textShadow: "0 0 60px rgba(0,0,0,1), 0 6px 40px rgba(0,0,0,0.95), 0 2px 0px rgba(0,0,0,0.9)", letterSpacing: "1px", WebkitTextStroke: "0.5px rgba(255,220,120,0.4)" }}>
           raj u Istri.
         </div>
       </AbsoluteFill>
@@ -122,7 +122,6 @@ const Scene1: React.FC<{ frame: number }> = ({ frame }) => {
 // ─── SCENE 2 ──────────────────────────────────────────────────────────────────
 const Scene2: React.FC<{ frame: number }> = ({ frame }) => {
   const { start, end } = SCENES.s2;
-  const barH = interpolate(frame, [start + 20, start + 60], [0, 260], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const tagOp = elemFade(frame, start + 22, end);
   const h1Op = elemFade(frame, start + 38, end);
   const h1Y = slideUp(frame, start + 38);
@@ -134,27 +133,23 @@ const Scene2: React.FC<{ frame: number }> = ({ frame }) => {
   return (
     <AbsoluteFill>
       <PhotoBG src="pool-olive.jpg" frame={frame} start={start} end={end} zoom="in" />
-      <AbsoluteFill style={{ padding: "0 60px", display: "flex", alignItems: "center" }}>
-        <div style={{ width: 4, height: barH, background: GOLD, borderRadius: 2, marginRight: 40, flexShrink: 0, opacity: elemFade(frame, start + 20, end) }} />
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ opacity: tagOp, fontFamily: "Castelforte, Georgia, serif", fontSize: 24, letterSpacing: "6px", color: CREAM, textTransform: "uppercase", marginBottom: 24, textShadow: "0 2px 14px rgba(0,0,0,0.9)" }}>
+      <AbsoluteFill style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0 60px", textAlign: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div style={{ opacity: tagOp, fontFamily: "Castelforte, Georgia, serif", fontSize: 30, letterSpacing: "6px", color: CREAM, textTransform: "uppercase", marginBottom: 30, textShadow: "0 2px 20px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.8)" }}>
             Privatni bazen
           </div>
-          <div style={{ opacity: h1Op, transform: `translateY(${h1Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 118, color: CREAM, lineHeight: 0.95, textShadow: "0 6px 36px rgba(0,0,0,0.85)" }}>
+          <div style={{ opacity: h1Op, transform: `translateY(${h1Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 148, color: CREAM, lineHeight: 0.92, textShadow: "0 6px 50px rgba(0,0,0,0.95), 0 0 80px rgba(0,0,0,0.7)" }}>
             Samo
           </div>
-          <div style={{ opacity: h2Op, transform: `translateY(${h2Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 118, color: CREAM, lineHeight: 0.95, textShadow: "0 6px 36px rgba(0,0,0,0.8)", marginBottom: 48 }}>
+          <div style={{ opacity: h2Op, transform: `translateY(${h2Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 148, color: GOLD, lineHeight: 0.92, textShadow: "0 6px 50px rgba(0,0,0,0.95), 0 0 80px rgba(0,0,0,0.7)", marginBottom: 56 }}>
             za vas.
           </div>
           {[
             { text: "Morska voda · Grijani bazen", op: f1Op },
             { text: "Ležaljke · Suncobrani · Mir", op: f2Op },
           ].map((f) => (
-            <div key={f.text} style={{ opacity: f.op, display: "flex", alignItems: "center", gap: 20, marginBottom: 18 }}>
-              <div style={{ width: 10, height: 10, borderRadius: "50%", background: GOLD, flexShrink: 0 }} />
-              <span style={{ fontFamily: "Georgia, serif", fontSize: 32, color: CREAM, textShadow: "0 2px 14px rgba(0,0,0,0.9)" }}>
-                {f.text}
-              </span>
+            <div key={f.text} style={{ opacity: f.op, fontFamily: "Georgia, serif", fontSize: 34, color: CREAM, textShadow: "0 2px 20px rgba(0,0,0,0.95), 0 0 40px rgba(0,0,0,0.7)", marginBottom: 16, letterSpacing: "1px" }}>
+              {f.text}
             </div>
           ))}
         </div>
@@ -230,11 +225,11 @@ const Scene4: React.FC<{ frame: number }> = ({ frame }) => {
         </div>
       </AbsoluteFill>
       <AbsoluteFill style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 60px 90px", opacity: quoteOp }}>
-        <div style={{ borderLeft: "4px solid " + GOLD, paddingLeft: 28 }}>
-          <div style={{ fontFamily: "Georgia, serif", fontSize: 26, color: "rgba(250,250,245,0.95)", fontStyle: "italic", lineHeight: 1.6, textShadow: "0 2px 12px rgba(0,0,0,0.85)" }}>
+        <div style={{ borderLeft: "5px solid " + GOLD, paddingLeft: 34 }}>
+          <div style={{ fontFamily: "Georgia, serif", fontSize: 34, color: "rgba(250,250,245,0.97)", fontStyle: "italic", lineHeight: 1.6, textShadow: "0 2px 16px rgba(0,0,0,0.9)" }}>
             „Toplo preporučujemo svima koji žele<br />miran i ugodan odmor."
           </div>
-          <div style={{ marginTop: 14, fontFamily: "Georgia, serif", fontSize: 22, color: GOLD, letterSpacing: "2px" }}>
+          <div style={{ marginTop: 18, fontFamily: "Georgia, serif", fontSize: 28, color: GOLD, letterSpacing: "2px", textShadow: "0 2px 12px rgba(0,0,0,0.9)" }}>
             — Ante ★★★★★
           </div>
         </div>
@@ -259,14 +254,20 @@ const Scene5: React.FC<{ frame: number }> = ({ frame }) => {
   return (
     <AbsoluteFill>
       <PhotoBG src="facade-night.jpg" frame={frame} start={start} end={end} zoom="out" />
-      <AbsoluteFill style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0 60px", textAlign: "center" }}>
-        <div style={{ opacity: logoOp, marginBottom: 44, display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
-          <div style={{ width: 80, height: 2.5, background: GOLD }} />
-          <span style={{ fontFamily: "Castelforte, Georgia, serif", fontSize: 26, letterSpacing: "8px", color: GOLD, textTransform: "uppercase" }}>
+
+      {/* NAZIV - GORE gdje je nebo */}
+      <AbsoluteFill style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", padding: "80px 60px 0", textAlign: "center" }}>
+        <div style={{ opacity: logoOp, display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          <div style={{ width: 100, height: 2.5, background: GOLD }} />
+          <span style={{ fontFamily: "Castelforte, Georgia, serif", fontSize: 48, letterSpacing: "10px", color: GOLD, textTransform: "uppercase", textShadow: "0 4px 30px rgba(0,0,0,0.95), 0 0 60px rgba(0,0,0,0.8)" }}>
             Krasna kuća Istra
           </span>
-          <div style={{ width: 80, height: 2.5, background: GOLD }} />
+          <div style={{ width: 100, height: 2.5, background: GOLD }} />
         </div>
+      </AbsoluteFill>
+
+      {/* HEADLINE - CENTAR */}
+      <AbsoluteFill style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0 60px", textAlign: "center" }}>
         <div style={{ opacity: h1Op, transform: `translateY(${h1Y}px)`, fontFamily: "Castelforte, Georgia, serif", fontSize: 128, color: CREAM, lineHeight: 1.0, textShadow: "0 8px 40px rgba(0,0,0,0.8)" }}>
           Vaše ljeto
         </div>
