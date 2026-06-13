@@ -1,4 +1,4 @@
-name: Render Krasna kuca Reel
+name: Render Villa Milana Reel
 
 on:
   push:
@@ -28,48 +28,27 @@ jobs:
       - name: Install FFmpeg
         run: sudo apt-get install -y ffmpeg
 
-      - name: Render V1 frames
-        run: npx remotion render KrasnaKucaV1 out/frames-v1/ --sequence --image-format=png
+      - name: Render frames
+        run: npx remotion render VillaMilanaReel out/frames/ --sequence --image-format=png
 
-      - name: Render V1 audio
-        run: npx remotion render KrasnaKucaV1 out/audio-v1.wav --codec=wav
+      - name: Render audio
+        run: npx remotion render VillaMilanaReel out/audio.wav --codec=wav
 
-      - name: Encode V1
+      - name: Encode video
         run: |
           ffmpeg \
             -framerate 30 \
-            -i out/frames-v1/element-%03d.png \
-            -i out/audio-v1.wav \
+            -i out/frames/element-%03d.png \
+            -i out/audio.wav \
             -c:v libx264 \
             -c:a aac \
             -shortest \
             -pix_fmt yuv420p \
             -movflags +faststart \
-            out/krasna-kuca-v1.mp4
+            out/villa-milana-reel.mp4
 
-      - name: Render V2 frames
-        run: npx remotion render KrasnaKucaV2 out/frames-v2/ --sequence --image-format=png
-
-      - name: Render V2 audio
-        run: npx remotion render KrasnaKucaV2 out/audio-v2.wav --codec=wav
-
-      - name: Encode V2
-        run: |
-          ffmpeg \
-            -framerate 30 \
-            -i out/frames-v2/element-%03d.png \
-            -i out/audio-v2.wav \
-            -c:v libx264 \
-            -c:a aac \
-            -shortest \
-            -pix_fmt yuv420p \
-            -movflags +faststart \
-            out/krasna-kuca-v2.mp4
-
-      - name: Upload artifacts
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: krasna-kuca-reels
-          path: |
-            out/krasna-kuca-v1.mp4
-            out/krasna-kuca-v2.mp4
+          name: villa-milana-reel
+          path: out/villa-milana-reel.mp4

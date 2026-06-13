@@ -1,21 +1,12 @@
 import { Composition } from "remotion";
-import { KrasnaKucaV1 } from "./KrasnaKucaV1";
-import { KrasnaKucaV2 } from "./KrasnaKucaV2";
+import { VillaMilanaReel } from "./VillaMilanaReel";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="KrasnaKucaV1"
-        component={KrasnaKucaV1}
-        durationInFrames={750}
-        fps={30}
-        width={1080}
-        height={1920}
-      />
-      <Composition
-        id="KrasnaKucaV2"
-        component={KrasnaKucaV2}
+        id="VillaMilanaReel"
+        component={VillaMilanaReel}
         durationInFrames={750}
         fps={30}
         width={1080}
