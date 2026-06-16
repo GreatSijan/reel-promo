@@ -6,39 +6,43 @@ export const copyHR = {
       tag: "LOVRAN, HRVATSKA",
       title: "BOUTIQUE\nHOTEL\nACACIA",
       sub: "Uz more. Od 1952.",
-      textPosition: "bottom", // tamno more u donjem dijelu
+      textPosition: "bottom-left",
     },
     {
       id: "sobe1",
       image: "2scena.jpg",
       tag: "SMJEŠTAJ",
       title: "Vaš mir.\nVaša soba.",
-      sub: "8 elegantnih soba s pogledom na more",
       textPosition: "top-left-overlay",
+      bedOptions: [
+        { icon: "🛏", label: "1 jednostruki krevet" },
+        { icon: "🛏", label: "1 bračni krevet" },
+        { icon: "🛏", label: "3 jednostruka kreveta" },
+      ],
     },
     {
       id: "sobe2",
       image: "2scena2kadar.jpg",
       tag: "SMJEŠTAJ",
       title: "Svaki detalj\ns razlogom.",
-      sub: "Balkon · Mini bar · Pogled na Kvarner",
       textPosition: "top-left-overlay",
+      popupCards: [
+        { icon: "🌅", label: "Balkon" },
+        { icon: "🍾", label: "Mini bar" },
+        { icon: "🌊", label: "Pogled na Kvarner" },
+      ],
     },
     {
       id: "wellness1",
       image: "3scena.jpg",
       tag: "WELLNESS",
       title: "Tijelo.\nUm. Mir.",
-      sub: "Unutarnji bazen · Sauna · Masaža",
-      textPosition: "top", // tamni grafit zid pozadi
-    },
-    {
-      id: "wellness2",
-      image: "3scena2kadar.jpg",
-      tag: "WELLNESS",
-      title: "Vaša\noaza.",
-      sub: "Privatni wellness za potpuni odmor",
       textPosition: "top",
+      popupCards: [
+        { icon: "🏊", label: "Unutarnji bazen" },
+        { icon: "🧖", label: "Sauna" },
+        { icon: "💆", label: "Masaža" },
+      ],
     },
     {
       id: "restoran1",
@@ -46,7 +50,7 @@ export const copyHR = {
       tag: "RESTORAN ŠTANGER",
       title: "Ukusi\nKvarnera.",
       sub: "Sezonski, svježi, s ljubavlju",
-      textPosition: "top", // sivi zid s okvirima
+      textPosition: "top",
     },
     {
       id: "restoran2",
@@ -54,15 +58,19 @@ export const copyHR = {
       tag: "RESTORAN ŠTANGER",
       title: "Doručak\ns pogledom.",
       sub: "Svako jutro. Sve je uključeno.",
-      textPosition: "bottom-left", // tamno more ispod horizonta
+      textPosition: "top-left",
     },
     {
       id: "plaza1",
       image: "5scena.jpg",
       tag: "ACACIA PLAŽA",
-      title: "Vaše\nmjesto\npod suncem.",
-      sub: "Besplatne ležaljke · Kajaci · SUP",
-      textPosition: "top-left", // tamno more gore lijevo
+      title: "Vaše mjesto\npod suncem.",
+      textPosition: "top-left",
+      popupCards: [
+        { icon: "🏖", label: "Besplatne ležaljke" },
+        { icon: "🚣", label: "Kajaci" },
+        { icon: "🏄", label: "SUP" },
+      ],
     },
     {
       id: "plaza2",
@@ -70,15 +78,15 @@ export const copyHR = {
       tag: "ACACIA PLAŽA",
       title: "Privatna\nobala.",
       sub: "Samo za goste hotela",
-      textPosition: "top-left", // tamno zelenilo gore lijevo
+      textPosition: "bottom-left-strong",
     },
     {
       id: "cta",
       image: "6scena.jpg",
       tag: "REZERVIRAJTE",
-      title: "Vaš\nsavršeni\nodmor.",
-      sub: "hotel-acacia.eu",
-      textPosition: "top-left", // tamna šuma i brda
+      title: "Your perfect\nescape.",
+      textPosition: "top-left",
+      ctaUrl: "hotel-acacia.eu",
     },
   ],
 };
