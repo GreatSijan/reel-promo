@@ -39,37 +39,14 @@ jobs:
       - name: Install npm dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Render PNG sequence
+      - name: Render video
         run: |
-          mkdir -p out/frames_${{ matrix.composition }}
+          mkdir -p out
           npx remotion render \
             src/index.ts \
             ${{ matrix.composition }} \
-            out/frames_${{ matrix.composition }} \
-            --image-format=png \
+            out/${{ matrix.composition }}.mp4 \
             --log=verbose
-
-      - name: Extract audio as WAV
-        run: |
-          ffmpeg -y \
-            -i public/"In alto mare (2022 Remastered).mp3" \
-            -ar 44100 -ac 2 \
-            out/audio_${{ matrix.composition }}.wav
-
-      - name: Stitch frames + audio with FFmpeg
-        run: |
-          ffmpeg -y \
-            -framerate 30 \
-            -i out/frames_${{ matrix.composition }}/%08d.png \
-            -i out/audio_${{ matrix.composition }}.wav \
-            -c:v libx264 \
-            -preset slow \
-            -crf 18 \
-            -pix_fmt yuv420p \
-            -c:a aac \
-            -b:a 192k \
-            -shortest \
-            out/${{ matrix.composition }}.mp4
 
       - name: Upload rendered video
         uses: actions/upload-artifact@v4
