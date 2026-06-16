@@ -1,54 +1,79 @@
-name: Render Villa Milana Reel
+name: Render Acacia Videos
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   render:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        composition: [AcaciaHR, AcaciaEN]
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "18"
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Install Chrome dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 \
-            libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
-            libxfixes3 libxrandr2 libgbm1 libasound2t64
+            libasound2t64 \
+            libgbm1 \
+            libxkbcommon0 \
+            libx11-xcb1 \
+            libxcb-dri3-0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxrandr2 \
+            libdrm2 \
+            ffmpeg
 
-      - name: Install FFmpeg
-        run: sudo apt-get install -y ffmpeg
+      - name: Install npm dependencies
+        run: npm install --legacy-peer-deps
 
-      - name: Render frames
-        run: npx remotion render VillaMilanaReel out/frames/ --sequence --image-format=png
-
-      - name: Render audio
-        run: npx remotion render VillaMilanaReel out/audio.wav --codec=wav
-
-      - name: Encode video
+      - name: Render PNG sequence
         run: |
-          ffmpeg \
-            -framerate 30 \
-            -i out/frames/element-%03d.png \
-            -i out/audio.wav \
-            -c:v libx264 \
-            -c:a aac \
-            -shortest \
-            -pix_fmt yuv420p \
-            -movflags +faststart \
-            out/villa-milana-reel.mp4
+          mkdir -p out/frames_${{ matrix.composition }}
+          npx remotion render \
+            src/index.ts \
+            ${{ matrix.composition }} \
+            out/frames_${{ matrix.composition }} \
+            --image-format=png \
+            --log=verbose
 
-      - name: Upload artifact
+      - name: Extract audio as WAV
+        run: |
+          ffmpeg -y \
+            -i public/"In alto mare (2022 Remastered).mp3" \
+            -ar 44100 -ac 2 \
+            out/audio_${{ matrix.composition }}.wav
+
+      - name: Stitch frames + audio with FFmpeg
+        run: |
+          ffmpeg -y \
+            -framerate 30 \
+            -i out/frames_${{ matrix.composition }}/%08d.png \
+            -i out/audio_${{ matrix.composition }}.wav \
+            -c:v libx264 \
+            -preset slow \
+            -crf 18 \
+            -pix_fmt yuv420p \
+            -c:a aac \
+            -b:a 192k \
+            -shortest \
+            out/${{ matrix.composition }}.mp4
+
+      - name: Upload rendered video
         uses: actions/upload-artifact@v4
         with:
-          name: villa-milana-reel
-          path: out/villa-milana-reel.mp4
+          name: ${{ matrix.composition }}
+          path: out/${{ matrix.composition }}.mp4
+          retention-days: 14
