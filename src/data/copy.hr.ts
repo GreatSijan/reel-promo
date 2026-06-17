@@ -15,9 +15,9 @@ export const copyHR = {
       title: "Vaš mir.\nVaša soba.",
       textPosition: "top-left-overlay",
       bedOptions: [
-        { icon: "🛏", label: "1 jednostruki krevet" },
-        { icon: "🛏", label: "1 bračni krevet" },
-        { icon: "🛏", label: "3 jednostruka kreveta" },
+        { iconType: "bed", label: "1 jednostruki krevet" },
+        { iconType: "bed", label: "1 bračni krevet" },
+        { iconType: "bed", label: "3 jednostruka kreveta" },
       ],
     },
     {
@@ -27,9 +27,9 @@ export const copyHR = {
       title: "Svaki detalj\ns razlogom.",
       textPosition: "top-left-overlay",
       popupCards: [
-        { icon: "🌅", label: "Balkon" },
-        { icon: "🍾", label: "Mini bar" },
-        { icon: "🌊", label: "Pogled na Kvarner" },
+        { iconType: "balcony", label: "Balkon" },
+        { iconType: "minibar", label: "Mini bar" },
+        { iconType: "wave", label: "Pogled na Kvarner" },
       ],
     },
     {
@@ -39,9 +39,9 @@ export const copyHR = {
       title: "Tijelo.\nUm. Mir.",
       textPosition: "top",
       popupCards: [
-        { icon: "🏊", label: "Unutarnji bazen" },
-        { icon: "🧖", label: "Sauna" },
-        { icon: "💆", label: "Masaža" },
+        { iconType: "pool", label: "Unutarnji bazen" },
+        { iconType: "sauna", label: "Sauna" },
+        { iconType: "massage", label: "Masaža" },
       ],
     },
     {
@@ -67,9 +67,9 @@ export const copyHR = {
       title: "Vaše mjesto\npod suncem.",
       textPosition: "top-left",
       popupCards: [
-        { icon: "🏖", label: "Besplatne ležaljke" },
-        { icon: "🚣", label: "Kajaci" },
-        { icon: "🏄", label: "SUP" },
+        { iconType: "sunbed", label: "Besplatne ležaljke" },
+        { iconType: "kayak", label: "Kajaci" },
+        { iconType: "sup", label: "SUP" },
       ],
     },
     {
@@ -84,7 +84,7 @@ export const copyHR = {
       id: "cta",
       image: "6scena.jpg",
       tag: "REZERVIRAJTE",
-      title: "Your perfect\nescape.",
+      title: "Vaš savršeni\nodmor.",
       textPosition: "top-left",
       ctaUrl: "hotel-acacia.eu",
     },

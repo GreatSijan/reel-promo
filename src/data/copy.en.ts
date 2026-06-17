@@ -15,9 +15,9 @@ export const copyEN = {
       title: "Your peace.\nYour room.",
       textPosition: "top-left-overlay",
       bedOptions: [
-        { icon: "🛏", label: "1 single bed" },
-        { icon: "🛏", label: "1 large double bed" },
-        { icon: "🛏", label: "3 single beds" },
+        { iconType: "bed", label: "1 single bed" },
+        { iconType: "bed", label: "1 large double bed" },
+        { iconType: "bed", label: "3 single beds" },
       ],
     },
     {
@@ -27,9 +27,9 @@ export const copyEN = {
       title: "Every detail\nintentional.",
       textPosition: "top-left-overlay",
       popupCards: [
-        { icon: "🌅", label: "Balcony" },
-        { icon: "🍾", label: "Mini bar" },
-        { icon: "🌊", label: "Kvarner views" },
+        { iconType: "balcony", label: "Balcony" },
+        { iconType: "minibar", label: "Mini bar" },
+        { iconType: "wave", label: "Kvarner views" },
       ],
     },
     {
@@ -39,9 +39,9 @@ export const copyEN = {
       title: "Body.\nMind. Rest.",
       textPosition: "top",
       popupCards: [
-        { icon: "🏊", label: "Indoor pool" },
-        { icon: "🧖", label: "Sauna" },
-        { icon: "💆", label: "Massage" },
+        { iconType: "pool", label: "Indoor pool" },
+        { iconType: "sauna", label: "Sauna" },
+        { iconType: "massage", label: "Massage" },
       ],
     },
     {
@@ -67,9 +67,9 @@ export const copyEN = {
       title: "Your spot\nunder the sun.",
       textPosition: "top-left",
       popupCards: [
-        { icon: "🏖", label: "Free sunbeds" },
-        { icon: "🚣", label: "Kayaks" },
-        { icon: "🏄", label: "SUP" },
+        { iconType: "sunbed", label: "Free sunbeds" },
+        { iconType: "kayak", label: "Kayaks" },
+        { iconType: "sup", label: "SUP" },
       ],
     },
     {
