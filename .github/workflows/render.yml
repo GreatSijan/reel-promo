@@ -1,56 +1,59 @@
-name: Render Acacia Videos
+name: Render Acacia Reel
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   render:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        composition: [AcaciaHR, AcaciaEN]
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
 
       - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libasound2t64 \
-            libgbm1 \
-            libxkbcommon0 \
-            libx11-xcb1 \
-            libxcb-dri3-0 \
-            libxcomposite1 \
-            libxdamage1 \
-            libxrandr2 \
-            libdrm2 \
-            ffmpeg
+            libgbm1 libasound2t64 \
+            libatk1.0-0 libatk-bridge2.0-0 \
+            libcups2 libdrm2 libxcomposite1 \
+            libxdamage1 libxfixes3 libxrandr2 \
+            libpango-1.0-0 libcairo2 ffmpeg
 
-      - name: Install npm dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Render video
+      - name: Render PNG sequence
         run: |
-          mkdir -p out
-          npx remotion render \
-            src/index.ts \
-            ${{ matrix.composition }} \
-            out/${{ matrix.composition }}.mp4 \
-            --log=verbose
+          npx remotion render AcaciaReel \
+            --image-format=png \
+            --output=out/frames/
 
-      - name: Upload rendered video
-        uses: actions/upload-artifact@v4
+      - name: Render audio WAV
+        run: |
+          npx remotion render AcaciaReel \
+            --sequence=false \
+            --output=out/audio.wav
+
+      - name: Encode final MP4
+        run: |
+          ffmpeg -y \
+            -framerate 30 \
+            -i out/frames/element-%03d.png \
+            -i out/audio.wav \
+            -c:v libx264 \
+            -c:a aac \
+            -shortest \
+            -pix_fmt yuv420p \
+            -crf 18 \
+            out/acacia-reel.mp4
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: ${{ matrix.composition }}
-          path: out/${{ matrix.composition }}.mp4
-          retention-days: 14
+          name: acacia-reel
+          path: out/acacia-reel.mp4
