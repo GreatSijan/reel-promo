@@ -52,8 +52,8 @@ jobs:
             -crf 18 \
             out/acacia-reel.mp4
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: acacia-reel
-          path: out/acacia-reel.mp4
+            - name: Upload artifact
+            uses: actions/upload-artifact@v4
+            with:
+              name: acacia-reel
+              path: out/acacia-reel.mp4
