@@ -35,7 +35,7 @@ jobs:
           npx remotion render AcaciaReel \
             --image-format=png \
             --sequence \
-            --output=out/frames/element-.png
+            --output=out/frames/
 
       - name: Render audio WAV
         run: |
